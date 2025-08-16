@@ -102,9 +102,9 @@ export default function ShipmentTable({ onSelectionChange }: Props) {
   ];
 
   return (
-    <div className="bg-white rounded-2xl mt-4 overflow-hidden shadow-sm">
-      <div>
-        <table className="w-full text-left text-[12px] sm:text-[13px]">
+    <div className="bg-white rounded-2xl mt-4 shadow-sm">
+      <div className="overflow-x-auto">
+        <table className="w-full min-w-[600px] text-left text-[12px] sm:text-[13px]">
           <thead>
             <tr className="bg-[#1558C0] text-white">
               <th className="w-8 sm:w-12 px-1 sm:px-3 py-2 sm:py-3 border-r border-white/15">

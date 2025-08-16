@@ -15,35 +15,36 @@ export default function Header({ currentStep = 0 }: HeaderProps) {
   return (
     <header className="w-full bg-white">
       {/*Top Bar */}
-      <div className="flex items-center justify-between px-4 sm:px-6 py-2.5 sm:py-3 bg-[#F6F9FF] border-b border-[#E8EDF5]">
-        <div className="flex items-center text-[13px] leading-none">
-          <Truck size={18} className="mr-3 text-blue-600" />
+      <div className="flex items-center justify-between px-3 sm:px-6 py-2 sm:py-3 bg-[#F6F9FF] border-b border-[#E8EDF5]">
+        <div className="flex items-center text-[11px] sm:text-[13px] leading-none">
+          <Truck size={16} className="mr-2 sm:mr-3 text-blue-600 sm:w-[18px] sm:h-[18px]" />
           <span className="text-gray-700 font-medium">Shipments</span>
-          <span className="mx-2 text-gray-400">/</span>
-          <span className="text-gray-500">Create New</span>
+          <span className="mx-1 sm:mx-2 text-gray-400">/</span>
+          <span className="text-gray-500 hidden sm:inline">Create New</span>
+          <span className="text-gray-500 sm:hidden">Create</span>
         </div>
 
-        <div className="flex items-center space-x-3">
+        <div className="flex items-center space-x-2 sm:space-x-3">
           <div className="relative">
             <button
               aria-label="Notifications"
-              className="h-9 w-9 rounded-full bg-white border shadow-sm flex items-center justify-center text-gray-600 hover:bg-gray-100"
+              className="h-7 w-7 sm:h-9 sm:w-9 rounded-full bg-white border shadow-sm flex items-center justify-center text-gray-600 hover:bg-gray-100"
             >
-              <Bell className="h-5 w-5" />
+              <Bell className="h-4 w-4 sm:h-5 sm:w-5" />
             </button>
-            <span className="absolute -top-0.5 -right-0.5 h-2.5 w-2.5 rounded-full bg-blue-600 border-2 border-white" />
+            <span className="absolute -top-0.5 -right-0.5 h-2 w-2 sm:h-2.5 sm:w-2.5 rounded-full bg-blue-600 border-2 border-white" />
           </div>
           <button
             aria-label="Apps"
-            className="h-9 w-9 rounded-full bg-white border shadow-sm flex items-center justify-center text-gray-600 hover:bg-gray-100"
+            className="h-7 w-7 sm:h-9 sm:w-9 rounded-full bg-white border shadow-sm flex items-center justify-center text-gray-600 hover:bg-gray-100"
           >
-            <LayoutGrid className="h-5 w-5" />
+            <LayoutGrid className="h-4 w-4 sm:h-5 sm:w-5" />
           </button>
         </div>
       </div>
 
 
-      <div className="px-4 sm:px-6 py-3 sm:py-4 border-b border-[#E8EDF5] bg-white">
+      <div className="px-2 sm:px-6 py-3 sm:py-4 border-b border-[#E8EDF5] bg-white">
         <div className="flex items-center w-full">
           <div className="flex items-center w-full">
           {steps.map((step, index) => {
@@ -54,12 +55,12 @@ export default function Header({ currentStep = 0 }: HeaderProps) {
               <Fragment key={index}>
                 <div className="flex items-center flex-1 min-w-0">
                   {isCompleted ? (
-                    <div className="w-6 h-6 sm:w-8 sm:h-8 rounded-full flex items-center justify-center bg-green-500 text-white flex-shrink-0">
-                      <Check className="h-4 w-4" />
+                    <div className="w-5 h-5 sm:w-8 sm:h-8 rounded-full flex items-center justify-center bg-green-500 text-white flex-shrink-0">
+                      <Check className="h-3 w-3 sm:h-4 sm:w-4" />
                     </div>
                   ) : (
                     <div
-                      className={`w-6 h-6 sm:w-8 sm:h-8 rounded-full flex items-center justify-center text-[12px] sm:text-sm font-medium flex-shrink-0 ${
+                      className={`w-5 h-5 sm:w-8 sm:h-8 rounded-full flex items-center justify-center text-[10px] sm:text-sm font-medium flex-shrink-0 ${
                         isCurrent
                           ? "bg-blue-600 text-white"
                           : "border-2 border-blue-500 text-blue-600"
@@ -68,12 +69,12 @@ export default function Header({ currentStep = 0 }: HeaderProps) {
                       {index + 1}
                     </div>
                   )}
-                  <span className={`ml-2 text-[12px] sm:text-[14px] ${isCurrent ? "font-semibold text-black" : "text-black"} truncate`}>
+                  <span className={`ml-1 sm:ml-2 text-[10px] sm:text-[14px] ${isCurrent ? "font-semibold text-black" : "text-black"} leading-tight`}>
                     {step}
                   </span>
                 </div>
                 {index !== steps.length - 1 && (
-                  <div className="h-[1px] sm:h-[2px] bg-[#98C0FF] mx-2 sm:mx-8 flex-shrink-0 w-6 sm:w-auto grow" />
+                  <div className="h-[1px] sm:h-[2px] bg-[#98C0FF] mx-1 sm:mx-8 flex-shrink-0 w-2 sm:w-auto grow" />
                 )}
               </Fragment>
             );
