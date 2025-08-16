@@ -103,7 +103,126 @@ export default function ShipmentTable({ onSelectionChange }: Props) {
 
   return (
     <div className="bg-white rounded-2xl mt-4 shadow-sm">
-      <div className="overflow-x-auto">
+      {/* Mobile Table */}
+      <div className="sm:hidden overflow-x-auto">
+        <table className="w-full min-w-[700px] text-left text-[11px]">
+          <thead>
+            <tr className="bg-[#1558C0] text-white">
+              <th className="w-8 px-1 py-2 border-r border-white/15 text-[10px] font-semibold">
+                <div className="flex flex-col items-center gap-1">
+                  <input
+                    type="checkbox"
+                    checked={allChecked}
+                    onChange={() => {
+                      if (allChecked) {
+                        setSelected({});
+                      } else {
+                        const next: Record<number, boolean> = {};
+                        rows.forEach((_, i) => (next[i] = true));
+                        setSelected(next);
+                      }
+                    }}
+                    className="h-3 w-3 rounded border-white/40 bg-transparent accent-white"
+                  />
+                  <span>All</span>
+                </div>
+              </th>
+              <th className="px-1 py-2 font-semibold border-r border-white/15 text-[10px] min-w-[80px]">Track</th>
+              <th className="px-1 py-2 font-semibold border-r border-white/15 text-[10px] min-w-[80px]">Weight & Size</th>
+              <th className="px-1 py-2 font-semibold border-r border-white/15 text-[10px] min-w-[70px]">Received</th>
+              <th className="px-1 py-2 font-semibold border-r border-white/15 text-[10px] min-w-[100px]">Desc</th>
+              <th className="px-1 py-2 font-semibold border-r border-white/15 text-[10px] min-w-[120px]">Repack</th>
+              <th className="px-1 py-2 font-semibold text-[10px] min-w-[40px]">Img</th>
+            </tr>
+          </thead>
+          <tbody>
+            {rows.map((r, i) => (
+              <tr key={i} className="border-b last:border-0">
+                <td className="px-1 py-2 align-top border-r border-[#E8EDF5]">
+                  <div className="flex items-center gap-1">
+                    <input
+                      type="checkbox"
+                      checked={!!selected[i]}
+                      onChange={() => setSelected((prev) => ({ ...prev, [i]: !prev[i] }))}
+                      className="h-3 w-3 rounded border-gray-300 accent-blue-600"
+                    />
+                    <span className="text-[9px] text-gray-700">{i + 1}</span>
+                  </div>
+                </td>
+                <td className="px-1 py-2 align-top text-gray-700 border-r border-[#E8EDF5] text-[10px]">
+                  <div className="truncate">{r.tracking}</div>
+                </td>
+                <td className="px-1 py-2 align-top text-gray-700 border-r border-[#E8EDF5] text-[10px]">
+                  <div className="flex flex-col gap-0.5">
+                    <span>{r.weight} lbs</span>
+                    <span className="text-[9px] text-gray-500">{r.dimensions}</span>
+                  </div>
+                </td>
+                <td className="px-1 py-2 align-top text-gray-700 border-r border-[#E8EDF5] text-[10px]">
+                  {r.received}
+                </td>
+                <td className="px-1 py-2 align-top text-gray-700 border-r border-[#E8EDF5] text-[10px]">
+                  <div className="truncate">{r.description}</div>
+                </td>
+                <td className="px-1 py-2 align-top border-r border-[#E8EDF5]">
+                  <div className="space-y-0.5 text-[9px]">
+                    <label className="flex items-center gap-1 cursor-pointer">
+                      <input
+                        type="radio"
+                        name={`repack-${i}`}
+                        checked={(repackChoices[i] ?? "none") === "none"}
+                        onChange={() => setRepackChoices((c) => ({ ...c, [i]: "none" }))}
+                        className="h-2 w-2 text-blue-600"
+                      />
+                      <span>None</span>
+                    </label>
+                    <label className="flex items-center gap-1 cursor-pointer">
+                      <input
+                        type="radio"
+                        name={`repack-${i}`}
+                        checked={repackChoices[i] === "remove"}
+                        onChange={() => setRepackChoices((c) => ({ ...c, [i]: "remove" }))}
+                        className="h-2 w-2 text-blue-600"
+                      />
+                      <span>Remove</span>
+                    </label>
+                    <label className="flex items-center gap-1 cursor-pointer">
+                      <input
+                        type="radio"
+                        name={`repack-${i}`}
+                        checked={repackChoices[i] === "full"}
+                        onChange={() => setRepackChoices((c) => ({ ...c, [i]: "full" }))}
+                        className="h-2 w-2 text-blue-600"
+                      />
+                      <span>Full</span>
+                    </label>
+                  </div>
+                </td>
+                <td className="px-1 py-2 align-top">
+                  <button
+                    onClick={() => setModalOpen(true)}
+                    className="relative inline-flex items-center justify-center w-6 h-6 rounded overflow-hidden cursor-pointer"
+                  >
+                    <img
+                      src={sampleImages[0]}
+                      className="w-full h-full object-cover blur-[1px] scale-105 opacity-90"
+                      alt="thumb"
+                    />
+                    <span className="absolute inset-0 flex items-center justify-center">
+                      <span className="text-white font-semibold text-[8px] leading-none drop-shadow-[0_1px_2px_rgba(0,0,0,0.8)]">
+                        +{r.photosCount}
+                      </span>
+                    </span>
+                  </button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+
+      {/* Desktop Table */}
+      <div className="hidden sm:block overflow-x-auto">
         <table className="w-full min-w-[600px] text-left text-[12px] sm:text-[13px]">
           <thead>
             <tr className="bg-[#1558C0] text-white">
