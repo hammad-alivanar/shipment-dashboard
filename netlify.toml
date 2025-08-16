@@ -1,0 +1,16 @@
+# netlify.toml
+
+[build]
+  command = "npm run build"
+  publish = ".next"
+
+[[plugins]]
+  package = "@netlify/plugin-nextjs"
+
+[build.environment]
+  NODE_VERSION = "20"
+  NEXT_TELEMETRY_DISABLED = "1"
+
+# Optional: function bundling settings (no functions directory needed)
+[functions]
+  node_bundler = "esbuild"
