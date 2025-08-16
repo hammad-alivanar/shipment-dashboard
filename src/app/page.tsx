@@ -11,29 +11,31 @@ export default function Home() {
   const [selectedRows, setSelectedRows] = useState<ShipmentSelection>([]);
 
   return (
-    <div className="flex min-h-screen">
+    <div className="flex min-h-screen overflow-hidden">
       {/* Sidebar */}
-      <Sidebar active={active} onChange={setActive} />
+      <div className="hidden sm:block">
+        <Sidebar active={active} onChange={setActive} />
+      </div>
 
       {/* Main Content */}
-      <div className="flex-1 flex flex-col bg-gray-50">
+      <div className="flex-1 flex flex-col bg-gray-50 min-w-0">
         {active === "shipments" ? (
           <>
             <Header currentStep={currentStep} />
-            <CustomerInfo />
-            <main className="p-4 sm:p-6">
+            <main className="p-2 sm:p-6 flex-1 min-h-0 overflow-auto">
+              <CustomerInfo />
               {currentStep === 0 || currentStep === 1 ? (
                 <ShipmentTable onSelectionChange={setSelectedRows} />
               ) : null}
-              <div className="flex flex-col-reverse sm:flex-row sm:justify-between gap-3 mt-6">
+              <div className="flex flex-col-reverse sm:flex-row sm:justify-between gap-3 mt-4 sm:mt-6">
                 <button
-                  className="px-6 py-2 bg-gray-200 rounded-lg cursor-pointer w-full sm:w-auto"
+                  className="px-4 sm:px-6 py-2 bg-gray-200 rounded-lg cursor-pointer w-full sm:w-auto text-sm"
                   onClick={() => setCurrentStep((s) => Math.max(0, s - 1))}
                 >
                   Back
                 </button>
                 <button
-                  className="px-6 py-2 bg-blue-600 text-white rounded-lg cursor-pointer w-full sm:w-auto"
+                  className="px-4 sm:px-6 py-2 bg-blue-600 text-white rounded-lg cursor-pointer w-full sm:w-auto text-sm"
                   onClick={() => setCurrentStep((s) => Math.min(4, s + 1))}
                 >
                   Next
